@@ -21,7 +21,7 @@ class App extends Component {
       }
     }
   }
-
+  
   componentDidMount() {
     console.log('mounted')
     this.socket = new WebSocket("ws://localhost:3003");
@@ -30,6 +30,7 @@ class App extends Component {
       console.log(`Socket state: ${this.socket.readyState}`);
     }
 
+    // on recieving message renders it
     this.socket.onmessage = (event) => {
       let message = JSON.parse(event.data)
 
