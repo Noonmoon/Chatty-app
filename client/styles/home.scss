@@ -6,6 +6,25 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700");
 @import url("https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css");
 
+.isa_error {
+  font-size: 15px;
+  color: #D8000C;
+  background-color: #FFD2D2;
+  margin: 10px 0px;
+  padding:8px;
+  border-radius:.5em;
+  border: 1px solid;
+  box-shadow:1px 1px 3px #888;
+  display: inline-block;
+  margin-bottom: 75px;
+  margin-right: 25px;
+  float: right;
+  bottom: 0;
+  width: 185px;
+  position: fixed;
+  right: 0;
+}
+
 body {
   background: #e3e3e3;
   color: black;

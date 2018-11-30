@@ -36,7 +36,6 @@ class App extends Component {
       switch(message.type) {
         case "clientCount":
           this.setState({userCount: message});
-          console.log("recieved usercount")
           break;
         case "incomingMessage":
           this.setState(prevState => ({
@@ -101,22 +100,25 @@ class App extends Component {
         }
       }
     }
-    const newMessage = {
-      type: 'postMessage',
-      id: uuidv1(),
-      username: name,
-      content: message
+    if (!message) {
+      this.setState({ noMessage: true })
+    } else {
+      this.setState({ noMessage: false })
+      const newMessage = {
+        type: 'postMessage',
+        id: uuidv1(),
+        username: name,
+        content: message
+      }
+      this.socket.send(JSON.stringify(newMessage))
+      this.setState(prevState => ({
+        ...prevState,
+        messages: [
+          ...prevState.messages,
+          newMessage
+        ]
+      }));
     }
-    this.socket.send(JSON.stringify(newMessage))
-    // const oldState = this.state.messages;
-    // const newState = [...oldState, newMessage];
-    this.setState(prevState => ({
-      ...prevState,
-      messages: [
-        ...prevState.messages,
-        newMessage
-      ]
-    }));
   }
 
   render() {
@@ -129,6 +131,9 @@ class App extends Component {
 
         <MessageList messages={this.state.messages} />
 
+        { this.state.noMessage && <div className="isa_error">
+          Please enter in a message
+        </div> }
         <ChatBar newName={this.state.newName} user={this.state.currentUser.name} updateUser={this.updateUser} grabCurrentName={this.grabCurrentName} addMessage={this.addMessage}/>
       </div>
     );
