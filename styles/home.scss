@@ -1,20 +1,27 @@
-h1 {
-  color: tomato;
+@keyframes BackgroundGradient {
+  0% {background-position: 0% 50%;}
+  50% {background-position: 100% 50%;}
+  100% {background-position: 0% 50%;}
 }
-
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700");
 @import url("https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css");
 
 body {
-  background: white;
+  background: #e3e3e3;
   color: black;
   font-family: 'Open Sans', sans-serif;
-  font-size: 14px;
+  font-size: 17px;
   margin: 70px 0;
 }
 
+.user-count {
+  float: right;
+}
+
 .chatbar {
-  background: tomato;
+  background: linear-gradient(100deg, #7423b2, #1967c6);
+  background-size: 400% 400%;
+  animation: BackgroundGradient 20s ease infinite;
   border-top: 1px solid black;
   bottom: 0;
   display: flex;
@@ -69,7 +76,9 @@ body {
 }
 
 .navbar {
-  background: tomato;
+  background: linear-gradient(100deg, #7423b2, #1967c6);
+  background-size: 400% 400%;
+  animation: BackgroundGradient 20s ease infinite;
   border-bottom: 1px solid black;
   height: 60px;
   left: 0;
