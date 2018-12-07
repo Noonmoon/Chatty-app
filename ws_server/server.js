@@ -8,11 +8,7 @@ const server = express()
   .use(express.static('public'))
   .listen(PORT, '0.0.0.0', 'localhost', () => console.log(`Listening on ${ PORT }`));
 
-// Create the WebSockets server
-const wss = new SocketServer({ server });
-
-wss.on('connection', (ws) => {
-  console.log('Client connected');
+function sendUserCount() {
   let userCount = {
     type: 'clientCount',
     count: wss.clients.size
@@ -22,6 +18,14 @@ wss.on('connection', (ws) => {
       client.send(JSON.stringify(userCount));
     }
   });
+}
+
+// Create the WebSockets server
+const wss = new SocketServer({ server });
+
+wss.on('connection', (ws) => {
+  console.log('Client connected');
+  sendUserCount()
 
   ws.on('message', function incoming(data) {
     let message = JSON.parse(data);
@@ -43,14 +47,6 @@ wss.on('connection', (ws) => {
 
   ws.on('close', () => {
     console.log('Client disconnected')
-    let userCount = {
-      type: 'clientCount',
-      count: wss.clients.size
-    }
-    wss.clients.forEach(function each(client) {
-      if (client.readyState === WebSocket.OPEN) {
-        client.send(JSON.stringify(userCount));
-      }
-    });
+    sendUserCount()
   });
 });
