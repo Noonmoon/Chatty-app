@@ -2,6 +2,7 @@ const uuidv1 = require('uuid/v1');
 import React, {Component} from 'react';
 import ChatBar from './ChatBarComponent.jsx';
 import MessageList from './MessageListComponent.jsx';
+import Nav from './NavComponent.jsx';
 
 class App extends Component {
   constructor(props) {
@@ -21,7 +22,7 @@ class App extends Component {
       }
     }
   }
-  
+
   componentDidMount() {
     console.log('mounted')
     this.socket = new WebSocket("ws://localhost:3003");
@@ -125,16 +126,15 @@ class App extends Component {
   render() {
     return (
       <div>
-        <nav className="navbar">
-          <a href="/" className="navbar-brand">Chatty</a>
-          <h2 className="user-count">{this.state.userCount.count} user(s) online</h2>
-        </nav>
+        <Nav userCount={this.state.userCount.count}/>
 
         <MessageList messages={this.state.messages} />
 
+        { /* displays error if no message entered */ }
         { this.state.noMessage && <div className="isa_error">
           Please enter in a message
         </div> }
+
         <ChatBar newName={this.state.newName} user={this.state.currentUser.name} updateUser={this.updateUser} grabCurrentName={this.grabCurrentName} addMessage={this.addMessage}/>
       </div>
     );
